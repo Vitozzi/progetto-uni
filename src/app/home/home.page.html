@@ -1,33 +1,142 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>
-      Progetto Uni - THE GOD
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content class="custom-bg" [fullscreen]="true">
   
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Benvenuti nel Progetto</ion-card-title>
-      <ion-card-subtitle>Sviluppato da Vito, Fulvio e Alien</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      Questa è la nostra applicazione universitaria creata con Ionic e Angular.
-    </ion-card-content>
-  </ion-card>
+  <div *ngIf="activeTab === 'login'" class="fade-in login-container">
+    <div class="login-header">
+      <div class="logo-circle">
+        <ion-icon name="barbell-outline"></ion-icon>
+      </div>
+      <h1>FIT <span class="accent">RESERVE</span></h1>
+      <p>Welcome back, THE GOD.</p>
+    </div>
 
-  <ion-list lines="inset">
-    <ion-item button (click)="funzioneDiEsempio()">
-      <ion-icon slot="start" name="people-outline"></ion-icon>
-      <ion-label>Gestione Studenti</ion-label>
-    </ion-item>
+    <div class="login-form">
+      <div class="input-glass">
+        <ion-icon name="mail"></ion-icon>
+        <input type="email" placeholder="Email Address" />
+      </div>
+      <div class="input-glass">
+        <ion-icon name="lock-closed"></ion-icon>
+        <input type="password" placeholder="Password" />
+      </div>
+    </div>
+
+    <div class="login-actions">
+      <button class="btn-primary" (click)="login('client')">LOGIN AS CLIENT</button>
+      <button class="btn-secondary" (click)="login('trainer')">LOGIN AS TRAINER</button>
+    </div>
+
+    <div class="login-footer">
+      <span class="forgot-link" (click)="recuperaPassword()">Forgot Password?</span>
+      <p class="signup-text">Don't have an account? <span class="signup-link" (click)="signUp()">Sign up</span></p>
+    </div>
+  </div>
+
+  
+  <div class="main-container" *ngIf="activeTab !== 'login'">
     
-    <ion-item button>
-      <ion-icon slot="start" name="calendar-outline"></ion-icon>
-      <ion-label>Calendario Lezioni</ion-label>
-    </ion-item>
-  </ion-list>
+    <div *ngIf="activeTab === 'home'" class="fade-in">
+      <div class="header-section">
+        <div class="user-info">
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" class="avatar" />
+          <div class="text-info">
+            <h1>Hello THE GOD!</h1>
+            <p>Let's start your day</p>
+          </div>
+        </div>
+        <div class="trophy-btn"><ion-icon name="trophy"></ion-icon></div>
+      </div>
+
+      <div class="glass-card steps-card">
+        <p class="card-title">Steps</p>
+        <div class="steps-row">
+          <h2>11 000 <span class="light-text">/ 16 000</span></h2>
+          <div class="progress-container">
+            <span class="progress-text">68%</span>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 68%;"><div class="progress-dot"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card activity-card">
+        <div class="card-header">
+          <p class="card-title">Daily Activity</p>
+          <span class="see-all">See all</span>
+        </div>
+        <div class="activity-content">
+          <div class="stats-list">
+            <div class="stat-item"><p>Steps</p><h3>11 000 <span class="light-text">/ 16 000</span></h3></div>
+            <div class="stat-item"><p>Calories</p><h3 class="accent">440 <span class="light-text">/ 680 Cal</span></h3></div>
+            <div class="stat-item"><p>Water</p><h3 class="accent">1,8 <span class="light-text">/ 2,5 L</span></h3></div>
+          </div>
+          <div class="rings-container">
+            <div class="ring ring-outer"><div class="ring ring-middle"><div class="ring ring-inner"><div class="ring-center"></div></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card workouts-card">
+        <div class="card-header">
+          <p class="card-title">Workouts</p>
+          <span class="see-all">See all</span>
+        </div>
+        <div class="workout-item">
+          <div class="workout-icon"><ion-icon name="walk"></ion-icon></div>
+          <div class="workout-details"><p>Indoor Walk</p><h4>2.44 km</h4></div>
+          <div class="workout-action"><span>Today</span><ion-icon name="chevron-forward"></ion-icon></div>
+        </div>
+        <div class="workout-item">
+          <div class="workout-icon"><ion-icon name="walk"></ion-icon></div>
+          <div class="workout-details"><p>Morning Running</p><h4>3.88 km</h4></div>
+          <div class="workout-action"><span>Today</span><ion-icon name="chevron-forward"></ion-icon></div>
+        </div>
+      </div>
+    </div> <div *ngIf="activeTab === 'trainer'" class="fade-in browse-view">
+      <div class="browse-header"><h2>Browse</h2></div>
+      
+      <div class="category-scroll">
+        <div class="cat-chip" *ngFor="let cat of categorie" [class.active]="activeCategory === cat" (click)="cambiaCategoria(cat)">
+          {{ cat }}
+        </div>
+      </div>
+
+      <div class="glass-card action-bar">
+        <div class="action-item" (click)="apriFiltri()"><ion-icon name="options"></ion-icon> Filters</div>
+        <div class="divider"></div>
+        <div class="action-item" (click)="apriOrdinamento()"><ion-icon name="swap-vertical"></ion-icon> Sorting</div>
+        <div class="divider"></div>
+        <div class="action-item" (click)="apriRicerca()"><ion-icon name="search"></ion-icon> Search</div>
+      </div>
+
+      <div class="trainer-list">
+        <div class="glass-card trainer-card" *ngFor="let t of trainers">
+          <div class="trainer-img-wrapper">
+            <img [src]="t.img" />
+            <div class="rating-badge"><span class="star">★</span>{{t.rating}}</div>
+          </div>
+          <div class="trainer-info">
+            <h3>{{t.name}}</h3><p>{{t.spec}}</p><span class="exp">{{t.exp}}</span>
+          </div>
+          <div class="trainer-arrow"><ion-icon name="chevron-forward"></ion-icon></div>
+        </div>
+      </div>
+    </div> </div> <div class="bottom-nav" *ngIf="activeTab !== 'login'">
+    <div class="nav-item" [class.active]="activeTab === 'home'" (click)="cambiaPagina('home')">
+      <ion-icon name="home"></ion-icon><span>Home</span>
+    </div>
+    <div class="nav-item" [class.active]="activeTab === 'trainer'" (click)="cambiaPagina('trainer')">
+      <ion-icon name="people"></ion-icon><span>Trainer</span>
+    </div>
+    <div class="fab-wrapper" (click)="aggiungiWorkout()">
+      <div class="fab-button"><ion-icon name="add"></ion-icon></div>
+    </div>
+    <div class="nav-item">
+      <ion-icon name="bar-chart"></ion-icon><span>Statistics</span>
+    </div>
+    <div class="nav-item">
+      <ion-icon name="ribbon"></ion-icon><span>Rewards</span>
+    </div>
+  </div>
 
 </ion-content>
