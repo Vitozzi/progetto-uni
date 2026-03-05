@@ -1,0 +1,7 @@
+{
+  "name": "progetto-uni",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
