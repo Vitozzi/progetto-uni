@@ -1,0 +1,23 @@
+
+<ion-content class="black-screen">
+  <div class="login-wrapper">
+    <div class="lime-circle">
+      <h1 class="app-title">FitReserve</h1>
+    </div>
+
+    <div class="welcome-container">
+      <p class="welcome-to">Welcome to</p>
+      <h1 class="main-title"> Your Gym Platform</h1>
+      <p class="subtitle">Sign-up or Login</p>
+    </div>
+
+    <div class="login-form">
+      <input [(ngModel)]="userEmail" type="email" class="custom-input" placeholder="Email" />
+      <input [(ngModel)]="userPassword" type="password" class="custom-input" placeholder="Password" />
+      <button class="lime-button" (click)="managergym()">Login to Club</button>
+      <p class="signup-text">
+        Not a member? <span class="lime-link">Sign up</span>
+      </p>
+    </div>
+  </div>
+</ion-content>
